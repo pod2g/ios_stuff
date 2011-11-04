@@ -1,5 +1,5 @@
 /*
- * posix_spawn : starts a command without ASLT and halted so that one can attach a debugger to it
+ * posix_spawn : starts a command without ASLR and halted so that one can attach a debugger to it
  *
  * (c) pod2g 11/2011
  */
