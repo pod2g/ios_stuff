@@ -1,0 +1,8 @@
+Hi, here's some stuff I wrote to disable ASLR and start a command halted so that one can debug a command crashing on startup with iOS 5's gdb.
+
+~pod2g
+
+example:
+> posix_spawn mycrashingcommand -itsargs &
+[1] 12345
+> gdb -p 12345
