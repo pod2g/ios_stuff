@@ -1,0 +1,6 @@
+CC=gcc
+CFLAGS=-arch i386 -lobjc -std=c99
+CFLAGS_IOKIT=$(CFLAGS)
+
+noaslr:main.c
+	$(CC) $(CFLAGS_IOKIT) -o $@ $^
