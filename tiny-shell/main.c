@@ -11,7 +11,7 @@
 #define BACKLOG 5
 
 int readUInt32(int socket, u_int32_t *ret) {
-	char buf[4];
+	u_int8_t buf[4];
 	ssize_t size;
 	if ((size = recv(socket, buf, 4, 0)) != 4) {
 		return 0;
