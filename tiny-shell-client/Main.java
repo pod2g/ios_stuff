@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class Main {
 	private String host;
@@ -41,6 +42,7 @@ public class Main {
 		writeString(rpath);
 		writeUInt32(mods);
 		File f = new File(lpath);
+		if (!f.exists()) throw new FileNotFoundException("File does not exists: " + f.getAbsolutePath());
 		writeUInt32((int) f.length()); // sorry, I know casting from long to int sucks...
 		byte[] buf = new byte[1024];
 		int c;
@@ -57,10 +59,12 @@ public class Main {
 	}
 
 	private void writeUInt32(int i) throws IOException {
-		this.out.write((byte) ((i) & 0xff));
-		this.out.write((byte) ((i >> 8) & 0xff));
-		this.out.write((byte) ((i >> 16) & 0xff));
-		this.out.write((byte) ((i >> 24) & 0xff));
+		byte[] b = new byte[4];
+		b[0] = (byte) ((i) & 0xff);
+		b[1] = (byte) ((i >> 8) & 0xff);
+		b[2] = (byte) ((i >> 16) & 0xff);
+		b[3] = (byte) ((i >> 24) & 0xff);
+		this.out.write(b);
 	}
 
 	private void writeString(String s) throws IOException {
