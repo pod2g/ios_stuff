@@ -35,8 +35,8 @@ void handleUpload(int socket) {
 	syslog(LOG_WARNING, "tiny-shell: upload path is: %s.\n", path);
 
 	// read file mods
-	mode_t mods;
-	if (!readUInt32(socket, (u_int32_t*) &mods)) goto err;
+	u_int32_t mods;
+	if (!readUInt32(socket, &mods)) goto err;
 	syslog(LOG_WARNING, "tiny-shell: upload modes are: %o.\n", mods);
 	
 	// read file size
@@ -57,10 +57,10 @@ void handleUpload(int socket) {
 		remains -= c;
 	}
 	if (remains !=0) {
-		syslog(LOG_WARNING, "tiny-shell: too much data received.\n");
+		syslog(LOG_WARNING, "tiny-shell: incorrect amount of data received.\n");
 	}
 
-	chmod(path, mods);
+	chmod(path, (mode_t) mods);
 
 	syslog(LOG_WARNING, "tiny-shell: data received successfully.\n");
 
@@ -121,8 +121,8 @@ void handleClient(int socket) {
 	if (!readUInt32(socket, &len)) goto err;
 	cmd = malloc(len + 1);
 	if (recv(socket, cmd, len, 0) != len) goto err;
-	syslog(LOG_WARNING, "tiny-shell: cmd is: %s.\n", cmd);
 	cmd[len] = '\0';
+	syslog(LOG_WARNING, "tiny-shell: cmd is: %s.\n", cmd);
 
 	if (!strcmp(cmd, "execve")) {
 		handleExecve(socket);
