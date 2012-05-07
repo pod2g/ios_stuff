@@ -8,3 +8,6 @@ CCFLAGS=-arch armv7 -isysroot $(SDK)
 tiny-shell: main.c
 	$(CC) $(CCFLAGS) -o $@ $^
 	codesign -fs "iPhone Developer" $@
+
+clean:
+	rm -f tiny-shell
