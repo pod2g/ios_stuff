@@ -49,6 +49,11 @@ void handleUpload(int socket) {
 	
 	unlink(path);
 	f = fopen(path, "wb");
+	if (f == NULL) {
+		syslog(LOG_ERR, "tiny-shell: can't open path %s for writing.\n", path);
+		goto err;
+	}
+
 	while (remains > 0) {
 		if ((c = recv(socket, buf, 1024, 0)) <= 0) {
 			goto err;
@@ -68,7 +73,7 @@ void handleUpload(int socket) {
 err:
 	if (path != NULL) free(path);
 	if (f != NULL) fclose(f);
-	if (err) syslog(LOG_ERR, "tiny-shell: failed to read data.\n");
+	if (err) syslog(LOG_ERR, "tiny-shell: failed to receive file.\n");
 }
 
 void handleExecve(int socket) {
