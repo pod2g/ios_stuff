@@ -1,0 +1,5 @@
+IDA Python script for iOS kernel reverse engineering:
+
+   - attempt to fix processor mode for kernel modules (Use split kext when loading the kernel)
+
+~pod2g
