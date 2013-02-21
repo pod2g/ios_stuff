@@ -1,0 +1,5 @@
+IDA Python script for iOS kernel and bootloaders reverse engineering:
+
+   - attempt to explore every ARM and THUMB functions by searching for PUSH instructions
+
+~pod2g
