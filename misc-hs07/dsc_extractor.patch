@@ -1,0 +1,27 @@
+diff -r e5140bc8a3c9 launch-cache/dsc_extractor.cpp
+--- a/launch-cache/dsc_extractor.cpp	Tue Feb 19 17:45:51 2013 +0100
++++ b/launch-cache/dsc_extractor.cpp	Tue Feb 19 17:51:25 2013 +0100
+@@ -50,6 +50,7 @@
+ #include <ext/hash_map>
+ #include <algorithm>
+ #include <dispatch/dispatch.h>
++#include <dlfcn.h>
+ 
+ struct seg_info
+ {
+@@ -456,7 +457,6 @@
+ }
+ 
+ 
+-#if 0 
+ 
+ typedef int (*extractor_proc)(const char* shared_cache_file_path, const char* extraction_root_path,
+ 													void (^progress)(unsigned current, unsigned total));
+@@ -484,7 +484,6 @@
+ 	fprintf(stderr, "dyld_shared_cache_extract_dylibs_progress() => %d\n", result);
+ 	return 0;
+ }
+-#endif
+ 
+  
+  
